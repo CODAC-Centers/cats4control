@@ -1,0 +1,114 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="section">
+    <div class="section-title">Welcome to Cats4Control</div>
+    <div class="section-subtitle">
+        A community-driven platform for researchers applying category theory to control systems, optimization, and decision making.
+    </div>
+</div>
+
+<!-- Upcoming Events Section -->
+<div class="section">
+    <h2 class="section-title">Upcoming Events</h2>
+    {% if upcoming_events %}
+        <div class="grid grid-3">
+            {% for event in upcoming_events %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ event.title }}</h3>
+                        <p class="card-text">
+                            <i class="fas fa-calendar"></i> {{ event.start_date|date:"F j, Y" }}<br>
+                            <i class="fas fa-map-marker-alt"></i> {{ event.location }}
+                        </p>
+                        <p class="card-text">{{ event.description|truncatewords:20 }}</p>
+                        <a href="{% url 'main:event_detail' event.id %}" class="btn">Learn More</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">No upcoming events yet</h3>
+                <p class="card-text">Stay tuned for updates on our research community!</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Active Projects Section -->
+<div class="section">
+    <h2 class="section-title">Active Research Projects</h2>
+    {% if active_projects %}
+        <div class="grid grid-2">
+            {% for project in active_projects %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ project.name }}</h3>
+                        <p class="card-text">{{ project.description|truncatewords:25 }}</p>
+                        <p class="card-text">
+                            <strong>Lead:</strong> {{ project.lead_researcher.name }}<br>
+                            <strong>Institution:</strong> {{ project.lead_researcher.institution }}
+                        </p>
+                        <a href="{% url 'main:project_detail' project.id %}" class="btn">View Project</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">No active projects yet</h3>
+                <p class="card-text">Stay tuned for updates on our research community!</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Recent Posts Section -->
+<div class="section">
+    <h2 class="section-title">Recent Blog Posts</h2>
+    {% if recent_posts %}
+        <div class="grid grid-3">
+            {% for post in recent_posts %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ post.title }}</h3>
+                        <p class="card-text">
+                            <small><i class="fas fa-user"></i> {{ post.author.name }} • {{ post.published_at|date:"F j, Y" }}</small>
+                        </p>
+                        <p class="card-text">{{ post.excerpt|default:post.content|truncatewords:20 }}</p>
+                        <a href="{% url 'main:post_detail' post.slug %}" class="btn">Read More</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">No posts yet</h3>
+                <p class="card-text">Stay tuned for blog posts from our research community!</p>
+                <a href="{% url 'main:posts_list' %}" class="btn">View All Posts</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Call to Action -->
+<div class="section">
+    <div class="card">
+        <div class="card-body" style="text-align: center; padding: 3rem;">
+            <h2 class="card-title">Join Our Community</h2>
+            <p class="card-text">
+                Connect with researchers worldwide who are pushing the boundaries of category theory applications in control systems and optimization.
+            </p>
+            <div style="margin-top: 2rem;">
+                <a href="{% url 'main:researchers_list' %}" class="btn" style="margin-right: 1rem;">Browse Researchers</a>
+                <a href="{% url 'main:references_list' %}" class="btn btn-secondary">View References</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

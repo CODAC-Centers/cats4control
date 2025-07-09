@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cats4Control{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Palette */
+            --primary-blue: #003057;
+            --accent-blue: #3A5DAE;
+            --secondary-purple: #764ba2;
+            --light-blue: #e8f2ff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --white: #ffffff;
+            --red-accent: #ef4444;
+            --green-500: #10b981;
+            --orange-500: #f59e0b;
+            --purple-500: #8b5cf6;
+            --tech-gold: #B3A369;
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Border radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--gray-800);
+            background-color: var(--gray-50);
+            font-size: var(--font-size-base);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-xl);
+        }
+
+        header {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: var(--spacing-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: var(--font-size-4xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+
+        .mission-statement {
+            font-size: var(--font-size-lg);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        nav {
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-xl);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: var(--font-size-base);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-link.active {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .nav-link i {
+            font-size: var(--font-size-sm);
+        }
+
+        main {
+            min-height: 60vh;
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .section {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .section-title {
+            font-size: var(--font-size-3xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--gray-900);
+            text-align: center;
+            letter-spacing: -0.025em;
+        }
+
+        .section-subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--gray-600);
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--light-blue);
+        }
+
+        .card-body {
+            padding: var(--spacing-xl);
+        }
+
+        .card-title {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--gray-900);
+        }
+
+        .card-text {
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.7;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--primary-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: var(--font-size-base);
+            transition: all var(--transition-normal);
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-300);
+        }
+
+        .grid {
+            display: grid;
+            gap: var(--spacing-xl);
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: var(--spacing-2xl) 0;
+            text-align: center;
+            margin-top: var(--spacing-3xl);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .footer-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color var(--transition-normal);
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp var(--transition-slow) ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 var(--spacing-lg);
+            }
+            
+            .nav-links {
+                gap: var(--spacing-lg);
+            }
+            
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+            
+            .hero-content h1 {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .mission-statement {
+                font-size: var(--font-size-base);
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                align-items: center;
+            }
+            
+            .nav-link {
+                justify-content: center;
+                padding: var(--spacing-md);
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .section-title {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .card-body {
+                padding: var(--spacing-lg);
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: var(--font-size-xl);
+            }
+            
+            .mission-statement {
+                font-size: var(--font-size-sm);
+            }
+            
+            .btn {
+                padding: var(--spacing-sm) var(--spacing-md);
+                font-size: var(--font-size-sm);
+            }
+            
+            .section-title {
+                font-size: var(--font-size-xl);
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="hero-content">
+                <h1>{% block page_title %}Cats4Control{% endblock %}</h1>
+                {% if not request.resolver_match.url_name == 'home' %}
+                {% else %}
+                <div class="mission-statement">
+                    It is our mission to organize a rich community of researchers in mathematics, engineering, computer science and social science on the applications of category theory to the areas of human and cyber-physical-human information and decision systems, optimization, and control theory.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="{% url 'main:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                        <i class="fas fa-home"></i>Home
+                    </a></li>
+                    <li><a href="{% url 'main:events_list' %}" class="nav-link {% if 'events' in request.resolver_match.url_name %}active{% endif %}">
+                        <i class="fas fa-calendar"></i>Events
+                    </a></li>
+                    <li><a href="{% url 'main:projects_list' %}" class="nav-link {% if 'projects' in request.resolver_match.url_name %}active{% endif %}">
+                        <i class="fas fa-project-diagram"></i>Projects
+                    </a></li>
+                    <li><a href="{% url 'main:researchers_list' %}" class="nav-link {% if 'researchers' in request.resolver_match.url_name %}active{% endif %}">
+                        <i class="fas fa-users"></i>Researchers
+                    </a></li>
+                    <li><a href="{% url 'main:references_list' %}" class="nav-link {% if 'references' in request.resolver_match.url_name %}active{% endif %}">
+                        <i class="fas fa-book"></i>References
+                    </a></li>
+                    <li><a href="{% url 'main:acc2025' %}" class="nav-link {% if 'acc2025' in request.resolver_match.url_name %}active{% endif %}">
+                        <i class="fas fa-presentation"></i>ACC 2025
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>Designed with <i class="fas fa-heart"></i> by <a href="https://github.com/hansriess" style="color: var(--white);">Hans Riess</a>. Cats4Control &copy; 2025. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="{% url 'main:home' %}">Home</a>
+                    <a href="{% url 'main:events_list' %}">Events</a>
+                    <a href="{% url 'main:projects_list' %}">Projects</a>
+                    <a href="{% url 'main:researchers_list' %}">Researchers</a>
+                    <a href="{% url 'main:references_list' %}">References</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

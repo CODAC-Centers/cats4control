@@ -1,0 +1,281 @@
+{% extends 'main/base.html' %}
+
+{% block page_title %}{{ researcher.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .researcher-profile {
+        background: var(--white);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        margin-bottom: var(--spacing-2xl);
+    }
+    
+    .profile-header {
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+        color: var(--white);
+        padding: var(--spacing-2xl);
+        text-align: center;
+        position: relative;
+    }
+    
+    .profile-photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid var(--white);
+        margin-bottom: var(--spacing-lg);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .profile-name {
+        font-size: var(--font-size-3xl);
+        font-weight: 700;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .profile-title {
+        font-size: var(--font-size-lg);
+        opacity: 0.9;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .profile-institution {
+        font-size: var(--font-size-xl);
+        font-weight: 600;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .profile-links {
+        display: flex;
+        gap: var(--spacing-lg);
+        justify-content: center;
+        margin-top: var(--spacing-lg);
+    }
+    
+    .profile-link {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        color: var(--white);
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.2);
+        padding: var(--spacing-md) var(--spacing-lg);
+        border-radius: var(--radius-md);
+        transition: all var(--transition-normal);
+        font-weight: 500;
+    }
+    
+    .profile-link:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    .profile-content {
+        padding: var(--spacing-2xl);
+    }
+    
+    .bio-section {
+        margin-bottom: var(--spacing-2xl);
+    }
+    
+    .bio-text {
+        font-size: var(--font-size-lg);
+        line-height: 1.7;
+        color: var(--gray-700);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-2xl);
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin-bottom: var(--spacing-lg);
+        border-bottom: 2px solid var(--light-blue);
+        padding-bottom: var(--spacing-sm);
+    }
+    
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--spacing-xl);
+        margin-bottom: var(--spacing-2xl);
+    }
+    
+    .project-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        padding: var(--spacing-xl);
+        border: 2px solid transparent;
+        transition: all var(--transition-normal);
+    }
+    
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--light-blue);
+    }
+    
+    .project-name {
+        font-size: var(--font-size-xl);
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .project-status {
+        display: inline-block;
+        padding: var(--spacing-xs) var(--spacing-md);
+        border-radius: var(--radius-sm);
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .project-status.active {
+        background: var(--green-500);
+        color: var(--white);
+    }
+    
+    .project-status.completed {
+        background: var(--gray-600);
+        color: var(--white);
+    }
+    
+    .project-description {
+        color: var(--gray-700);
+        line-height: 1.6;
+    }
+    
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: var(--spacing-xl);
+    }
+    
+    .post-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        padding: var(--spacing-xl);
+        border: 2px solid transparent;
+        transition: all var(--transition-normal);
+    }
+    
+    .post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--light-blue);
+    }
+    
+    .post-title {
+        font-size: var(--font-size-xl);
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .post-excerpt {
+        color: var(--gray-700);
+        line-height: 1.6;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .post-date {
+        font-size: var(--font-size-sm);
+        color: var(--gray-600);
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: var(--spacing-2xl);
+        color: var(--gray-600);
+    }
+    
+    .empty-state i {
+        font-size: var(--font-size-4xl);
+        margin-bottom: var(--spacing-lg);
+        color: var(--gray-400);
+    }
+    
+    @media (max-width: 768px) {
+        .profile-links {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .profile-name {
+            font-size: var(--font-size-2xl);
+        }
+        
+        .profile-institution {
+            font-size: var(--font-size-lg);
+        }
+        
+        .projects-grid,
+        .posts-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Researcher Profile Header -->
+<div class="researcher-profile">
+    <div class="profile-header">
+        {% if researcher.photo %}
+            <img src="{{ researcher.photo.url }}" alt="{{ researcher.name }}" class="profile-photo">
+        {% endif %}
+        <h1 class="profile-name">{{ researcher.name }}</h1>
+        {% if researcher.title %}
+            <p class="profile-title">{{ researcher.title }}</p>
+        {% endif %}
+        <p class="profile-institution">{{ researcher.institution }}</p>
+        
+        {% if researcher.website or researcher.lab_website %}
+            <div class="profile-links">
+                {% if researcher.website %}
+                    <a href="{{ researcher.website }}" class="profile-link" target="_blank">
+                        <i class="fas fa-globe"></i> Personal Website
+                    </a>
+                {% endif %}
+                {% if researcher.lab_website %}
+                    <a href="{{ researcher.lab_website }}" class="profile-link" target="_blank">
+                        <i class="fas fa-flask"></i> 
+                        {% if researcher.lab_name %}{{ researcher.lab_name }}{% else %}Lab Website{% endif %}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    
+    {% if researcher.bio %}
+        <div class="profile-content">
+            <div class="bio-section">
+                <h2 class="section-title">About</h2>
+                <p class="bio-text">{{ researcher.bio|linebreaks }}</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Projects Section -->
+{% if projects %}
+<div class="section">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+        {% for project in projects %}
+        <div class="project-card">
+            <h3 class="project-name">{{ project.name }}</h3>
+            <span class="project-status {{ project.status }}">{{ project.get_status_display }}</span>
+            <p class="project-description">{{ project.description|truncatewords:25 }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %} 

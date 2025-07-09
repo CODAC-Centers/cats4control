@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+{% block page_title %}References{% endblock %}
+
+{% block content %}
+<div class="section">
+    <h2 class="section-title">Reference Library</h2>
+    <div class="section-subtitle">
+        Essential papers and books on applied category theory
+    </div>
+    
+    {% if references %}
+        <div class="grid grid-2">
+            {% for reference in references %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ reference.title }}</h3>
+                        <p class="card-text">
+                            <strong>Authors:</strong> {{ reference.authors }}<br>
+                            <strong>Year:</strong> {{ reference.year }}<br>
+                            <strong>Type:</strong> {{ reference.get_reference_type_display }}
+                        </p>
+                        <p class="card-text">{{ reference.abstract|truncatewords:25 }}</p>
+                        {% if reference.url %}
+                            <a href="{{ reference.url }}" class="btn" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">No references yet</h3>
+                <p class="card-text">The reference library is being built. Check back soon for essential papers and books!</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
