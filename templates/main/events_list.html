@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+
+{% block page_title %}Events{% endblock %}
+
+{% block content %}
+<div class="section">
+    <h2 class="section-title">Events</h2>
+    <div class="section-subtitle">
+        Upcoming and past conferences, workshops, and seminars
+    </div>
+    
+    {% if events %}
+        <div class="grid grid-2">
+            {% for event in events %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ event.title }}</h3>
+                        <p class="card-text">
+                            <i class="fas fa-calendar"></i> {{ event.start_date|date:"F j, Y" }} - {{ event.end_date|date:"F j, Y" }}<br>
+                            <i class="fas fa-map-marker-alt"></i> {{ event.location }}
+                        </p>
+                        <p class="card-text">{{ event.description|truncatewords:30 }}</p>
+                        <a href="{% url 'main:event_detail' event.id %}" class="btn">View Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">No events yet</h3>
+                <p class="card-text">Stay tuned for updates on our research community!</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,713 @@
+{% extends 'main/base.html' %}
+
+{% block page_title %}{{ event.title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Event-specific styling */
+    .event-header {
+        background: var(--white);
+        color: var(--gray-800);
+        padding: var(--spacing-2xl) 0;
+        border-radius: var(--radius-xl);
+        margin-bottom: var(--spacing-xl);
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--gray-200);
+    }
+
+
+
+    .event-header-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+    }
+
+    .event-title {
+        font-size: var(--font-size-3xl);
+        font-weight: 700;
+        margin-bottom: var(--spacing-lg);
+        line-height: 1.2;
+        letter-spacing: -0.025em;
+    }
+
+    .event-details {
+        display: flex;
+        gap: var(--spacing-2xl);
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .event-location {
+        display: flex;
+        gap: var(--spacing-2xl);
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        font-size: var(--font-size-lg);
+        font-weight: 500;
+    }
+
+    .detail-item i {
+        color: var(--primary-blue);
+        font-size: var(--font-size-xl);
+    }
+
+    .event-image {
+        width: 300px;
+        height: auto;
+        margin: var(--spacing-lg) 0;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .organizers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--spacing-xl);
+    }
+
+    .organizer-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-md);
+        border: 2px solid transparent;
+    }
+
+    .organizer-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--light-blue);
+    }
+
+    .organizer-image {
+        text-align: center;
+        margin-bottom: var(--spacing-lg);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .organizer-image img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .organizer-info {
+        padding: var(--spacing-xl);
+        text-align: center;
+    }
+
+    .organizer-info h3 {
+        font-size: var(--font-size-xl);
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .organizer-affiliation {
+        font-size: var(--font-size-lg);
+        font-weight: 500;
+        color: var(--accent-blue);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .organizer-expertise {
+        font-size: var(--font-size-sm);
+        color: var(--gray-600);
+        font-style: italic;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .talks-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xl);
+    }
+
+    .talk-item {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        transition: all var(--transition-normal);
+        border-left: 5px solid var(--primary-blue);
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        min-height: 120px;
+    }
+
+    .talk-item:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .talk-item.opening {
+        border-left-color: var(--green-500);
+    }
+
+    .talk-item.closing {
+        border-left-color: var(--red-accent);
+    }
+
+    .talk-item.break {
+        border-left-color: var(--orange-500);
+    }
+
+    .talk-item.panel {
+        border-left-color: var(--purple-500);
+    }
+
+    .talk-item.demo {
+        border-left-color: var(--secondary-purple);
+    }
+
+    .talk-item.talk {
+        border-left-color: var(--primary-blue);
+    }
+
+    .talk-time {
+        background: var(--gray-50);
+        padding: var(--spacing-xl);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-right: 1px solid var(--gray-200);
+    }
+
+    .time {
+        font-size: var(--font-size-lg);
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .duration {
+        font-size: var(--font-size-sm);
+        color: var(--gray-600);
+        background: var(--gray-200);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: var(--radius-sm);
+        font-weight: 500;
+    }
+
+    .talk-content {
+        padding: var(--spacing-xl);
+    }
+
+    .talk-content h3 {
+        font-size: var(--font-size-xl);
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin-bottom: var(--spacing-sm);
+        line-height: 1.3;
+    }
+
+    .talk-speakers {
+        display: flex;
+        gap: var(--spacing-sm);
+        flex-wrap: wrap;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .speaker-tag {
+        background: var(--light-blue);
+        color: var(--primary-blue);
+        padding: var(--spacing-xs) var(--spacing-md);
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .talk-description {
+        color: var(--gray-700);
+        font-size: var(--font-size-base);
+        line-height: 1.6;
+        margin-bottom: var(--spacing-lg);
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all var(--transition-normal);
+    }
+
+    .talk-item:hover .talk-description {
+        opacity: 1;
+        max-height: 300px;
+    }
+
+    .talk-references {
+        margin-bottom: var(--spacing-lg);
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all var(--transition-normal);
+    }
+
+    .talk-item:hover .talk-references {
+        opacity: 1;
+        max-height: 200px;
+    }
+
+    .talk-references h4 {
+        color: var(--primary-blue);
+        font-size: var(--font-size-base);
+        font-weight: 600;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .talk-references ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .talk-references li {
+        background: var(--gray-50);
+        padding: var(--spacing-sm) var(--spacing-md);
+        margin-bottom: var(--spacing-xs);
+        border-radius: var(--radius-sm);
+        border-left: 3px solid var(--primary-blue);
+        font-size: var(--font-size-sm);
+        line-height: 1.4;
+    }
+
+    .talk-references .reference-link {
+        color: var(--accent-blue);
+        text-decoration: none;
+        margin-left: var(--spacing-sm);
+        font-size: var(--font-size-xs);
+    }
+
+    .talk-references .reference-link:hover {
+        color: var(--primary-blue);
+    }
+
+    .references-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: var(--spacing-xl);
+    }
+
+    .reference-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-xl);
+        box-shadow: var(--shadow-md);
+        transition: all var(--transition-normal);
+        border: 2px solid transparent;
+        display: flex;
+        gap: var(--spacing-lg);
+    }
+
+    .reference-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--light-blue);
+    }
+
+    .reference-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--accent-blue), var(--primary-blue));
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: transform var(--transition-normal);
+    }
+
+    .reference-card:hover .reference-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .reference-icon i {
+        font-size: var(--font-size-xl);
+        color: var(--white);
+    }
+
+    .reference-content h3 {
+        font-size: var(--font-size-lg);
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin-bottom: var(--spacing-sm);
+        line-height: 1.3;
+    }
+
+    .reference-authors {
+        font-size: var(--font-size-sm);
+        color: var(--gray-600);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .reference-year {
+        font-size: var(--font-size-sm);
+        color: var(--accent-blue);
+        font-weight: 600;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .reference-description {
+        font-size: var(--font-size-sm);
+        color: var(--gray-700);
+        line-height: 1.6;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .reference-link-main {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        color: var(--accent-blue);
+        text-decoration: none;
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        transition: all var(--transition-normal);
+    }
+
+    .reference-link-main:hover {
+        color: var(--primary-blue);
+        transform: translateX(2px);
+    }
+
+    .talk-actions {
+        display: flex;
+        gap: var(--spacing-md);
+        flex-wrap: wrap;
+    }
+
+    .slides-btn {
+        background: var(--primary-blue);
+        color: var(--white);
+        border: none;
+        padding: var(--spacing-md) var(--spacing-lg);
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        transition: all var(--transition-normal);
+        text-decoration: none;
+    }
+
+    .slides-btn:hover {
+        background: var(--accent-blue);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .video-btn {
+        background: var(--red-accent);
+        color: var(--white);
+        border: none;
+        padding: var(--spacing-md) var(--spacing-lg);
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        transition: all var(--transition-normal);
+        text-decoration: none;
+    }
+
+    .video-btn:hover {
+        background: #dc2626;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .talk-item {
+            grid-template-columns: 1fr;
+        }
+        
+        .talk-time {
+            border-right: none;
+            border-bottom: 1px solid var(--gray-200);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .event-title {
+            font-size: var(--font-size-2xl);
+        }
+        
+        .event-details {
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .organizers-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .references-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .reference-card {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .event-title {
+            font-size: var(--font-size-xl);
+        }
+        
+        .organizer-info {
+            padding: var(--spacing-lg);
+        }
+        
+        .talk-actions {
+            flex-direction: column;
+        }
+        
+        .slides-btn,
+        .video-btn {
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Event Header -->
+<div class="event-header">
+    <div class="event-header-content">
+        <h1 class="event-title">{{ event.title }}</h1>
+        <div class="event-details">
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>{{ event.start_date|date:"F d, Y" }}</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-clock"></i>
+                <span>{{ event.start_date|time:"g:i A" }}{% if event.end_date %} - {{ event.end_date|time:"g:i A" }}{% endif %}</span>
+            </div>
+        </div>
+        <div class="event-location">
+            {% if event.location %}
+            <div class="detail-item">
+                <i class="fas fa-map-pin"></i>
+                <span>{{ event.location }}</span>
+            </div>
+            {% endif %}
+            {% if event.venue %}
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>{{ event.venue }}</span>
+            </div>
+            {% endif %}
+            {% if event.room %}
+            <div class="detail-item">
+                <i class="fas fa-door-open"></i>
+                <span>{{ event.room }}</span>
+            </div>
+            {% endif %}
+        </div>
+        {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
+        {% endif %}
+    </div>
+</div>
+
+<!-- About Section -->
+<div class="section">
+    <h2 class="section-title">About the Event</h2>
+    <div class="card">
+        <div class="card-body">
+            <p>{{ event.description|linebreaks }}</p>
+            {% if event.registration_url %}
+            <div style="text-align: center; margin-top: var(--spacing-xl);">
+                <a href="{{ event.registration_url }}" class="btn" target="_blank">
+                    <i class="fas fa-user-plus"></i> Register Now
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Organizers Section -->
+{% if event.organizers.exists %}
+<div class="section">
+    <h2 class="section-title">Organizers</h2>
+    <div class="organizers-grid">
+        {% for organizer in event.organizers.all %}
+        <div class="organizer-card">
+            <div class="organizer-info">
+                {% if organizer.photo %}
+                <div class="organizer-image">
+                    <img src="{{ organizer.photo.url }}" alt="{{ organizer.name }}">
+                </div>
+                {% endif %}
+                <h3>{{ organizer.name }}</h3>
+                <p class="organizer-affiliation">
+                    <strong>{{ organizer.institution }}</strong>
+                </p>
+                {% if organizer.title %}
+                <p class="organizer-expertise">{{ organizer.title }}</p>
+                {% endif %}
+                <a href="{% url 'main:researcher_detail' organizer.id %}" class="btn">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Talks/Schedule Section -->
+{% if talks %}
+<div class="section">
+    <h2 class="section-title">Schedule</h2>
+    <div class="talks-timeline">
+        {% for talk in talks %}
+        <div class="talk-item {{ talk.talk_type }}">
+            <div class="talk-time">
+                <div class="time">{{ talk.start_time|time:"g:i A" }}</div>
+                <div class="duration">
+                    <span class="duration-text" 
+                          data-start="{{ talk.start_time|date:'c' }}" 
+                          data-end="{{ talk.end_time|date:'c' }}">
+                        {{ talk.start_time|timesince:talk.end_time|slice:":2" }} min
+                    </span>
+                </div>
+            </div>
+            <div class="talk-content">
+                <h3>{{ talk.title }}</h3>
+                <div class="talk-speakers">
+                    <span class="speaker-tag">{{ talk.speaker.name }}</span>
+                    {% for additional_speaker in talk.additional_speakers.all %}
+                    <span class="speaker-tag">{{ additional_speaker.name }}</span>
+                    {% endfor %}
+                </div>
+                {% if talk.abstract %}
+                <p class="talk-description">{{ talk.abstract|linebreaks }}</p>
+                {% endif %}
+                {% if talk.references.exists %}
+                <div class="talk-references">
+                    <h4>References:</h4>
+                    <ul>
+                        {% for reference in talk.references.all %}
+                        <li>
+                            <strong>{{ reference.title }}</strong> ({{ reference.year }})
+                            {% if reference.authors %} - {{ reference.authors }}{% endif %}
+                            {% if reference.url %}
+                            <a href="{{ reference.url }}" target="_blank" class="reference-link">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if talk.slides or talk.video_url %}
+                <div class="talk-actions">
+                    {% if talk.slides %}
+                    <a href="{{ talk.slides.url }}" class="slides-btn" target="_blank">
+                        <i class="fas fa-presentation"></i> View Slides
+                    </a>
+                    {% endif %}
+                    {% if talk.video_url %}
+                    <a href="{{ talk.video_url }}" class="video-btn" target="_blank">
+                        <i class="fas fa-video"></i> Watch Video
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- References Section -->
+{% if event_references %}
+<div class="section">
+    <h2 class="section-title">References</h2>
+    <div class="references-grid">
+        {% for reference in event_references %}
+        <div class="reference-card">
+            <div class="reference-icon">
+                {% if reference.reference_type == 'book' %}
+                    <i class="fas fa-book"></i>
+                {% elif reference.reference_type == 'paper' or reference.reference_type == 'journal_article' %}
+                    <i class="fas fa-file-alt"></i>
+                {% elif reference.reference_type == 'thesis' %}
+                    <i class="fas fa-graduation-cap"></i>
+                {% elif reference.reference_type == 'conference_proceedings' %}
+                    <i class="fas fa-users"></i>
+                {% else %}
+                    <i class="fas fa-document"></i>
+                {% endif %}
+            </div>
+            <div class="reference-content">
+                <h3>{{ reference.title }}</h3>
+                {% if reference.authors %}
+                <p class="reference-authors">
+                    <strong>Authors:</strong> {{ reference.authors }}
+                </p>
+                {% endif %}
+                <p class="reference-year">
+                    <strong>Year:</strong> {{ reference.year }}
+                </p>
+                {% if reference.abstract %}
+                <p class="reference-description">{{ reference.abstract|truncatewords:25 }}</p>
+                {% endif %}
+                {% if reference.url %}
+                <a href="{{ reference.url }}" class="reference-link-main" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> 
+                    {% if reference.reference_type == 'book' %}Read Book{% else %}Read Paper{% endif %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const durationElements = document.querySelectorAll('.duration-text');
+    
+    durationElements.forEach(function(element) {
+        const startTime = new Date(element.getAttribute('data-start'));
+        const endTime = new Date(element.getAttribute('data-end'));
+        
+        const durationMs = endTime - startTime;
+        const durationMinutes = Math.round(durationMs / (1000 * 60));
+        
+        element.textContent = durationMinutes + ' min';
+    });
+});
+</script>
+{% endblock %} 

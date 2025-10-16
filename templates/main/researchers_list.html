@@ -1,0 +1,208 @@
+{% extends 'main/base.html' %}
+
+{% block page_title %}Researchers{% endblock %}
+
+{% block extra_css %}
+<style>
+    .researcher-card {
+        position: relative;
+        background: var(--white);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        transition: all var(--transition-normal);
+        border: 2px solid transparent;
+    }
+    
+    .researcher-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--light-blue);
+    }
+    
+    .researcher-photo {
+        text-align: center;
+        margin-bottom: 1rem;
+        position: relative;
+        cursor: pointer;
+    }
+    
+    .researcher-photo img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform var(--transition-normal);
+    }
+    
+    .researcher-bio {
+        background: var(--tech-gold);
+        color: var(--white);
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-xl);
+        margin: var(--spacing-md);
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all var(--transition-normal);
+        font-size: var(--font-size-sm);
+        line-height: 1.6;
+        box-shadow: var(--shadow-md);
+        transform: translateY(-10px);
+    }
+    
+    .researcher-card:hover .researcher-bio {
+        opacity: 1;
+        max-height: 300px;
+        overflow-y: auto;
+        transform: translateY(0);
+    }
+    
+    .researcher-info {
+        text-align: center;
+        padding: var(--spacing-xl);
+    }
+    
+    .researcher-name {
+        font-size: var(--font-size-xl);
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .researcher-institution {
+        font-size: var(--font-size-base);
+        color: var(--gray-700);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .researcher-title {
+        font-size: var(--font-size-sm);
+        color: var(--gray-600);
+        font-style: italic;
+    }
+    
+    .bio-hint {
+        font-size: var(--font-size-xs);
+        color: var(--gray-500);
+        margin-top: var(--spacing-sm);
+        opacity: 0.7;
+    }
+    
+    .researcher-links {
+        display: flex;
+        gap: var(--spacing-md);
+        justify-content: center;
+        margin: var(--spacing-md) 0;
+    }
+    
+    .website-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--primary-blue);
+        color: var(--white);
+        text-decoration: none;
+        font-size: var(--font-size-lg);
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+        pointer-events: auto;
+    }
+    
+    .website-link:hover {
+        background: var(--accent-blue);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .profile-button {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-sm) var(--spacing-lg);
+        background: var(--primary-blue);
+        color: var(--white);
+        text-decoration: none;
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+        margin-top: var(--spacing-md);
+    }
+    
+    .profile-button:hover {
+        background: var(--accent-blue);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        color: var(--white);
+        text-decoration: none;
+    }
+    
+    .profile-button i {
+        font-size: var(--font-size-xs);
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="section">
+    <h2 class="section-title">Research Community</h2>
+    <div class="section-subtitle">
+        Meet the researchers advancing category theory applications in control systems
+    </div>
+    
+    {% if researchers %}
+        <div class="grid grid-3">
+            {% for researcher in researchers %}
+                <div class="researcher-card">
+                    <div class="researcher-info">
+                        {% if researcher.photo %}
+                            <div class="researcher-photo">
+                                <img src="{{ researcher.photo.url }}" alt="{{ researcher.name }}">
+                            </div>
+                        {% endif %}
+                        <h3 class="researcher-name">{{ researcher.name }}</h3>
+                        <p class="researcher-institution">
+                            <strong>{{ researcher.institution }}</strong>
+                        </p>
+                        {% if researcher.title %}
+                            <p class="researcher-title">{{ researcher.title }}</p>
+                        {% endif %}
+                        {% if researcher.website or researcher.lab_website %}
+                            <div class="researcher-links">
+                                {% if researcher.website %}
+                                    <a href="{{ researcher.website }}" target="_blank" class="website-link" title="Personal Website">
+                                        <i class="fas fa-globe"></i>
+                                    </a>
+                                {% endif %}
+                                {% if researcher.lab_website %}
+                                    <a href="{{ researcher.lab_website }}" target="_blank" class="website-link" title="Lab Website">
+                                        <i class="fas fa-flask"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        <a href="{% url 'main:researcher_detail' researcher.id %}" class="profile-button">
+                            <i class="fas fa-user"></i>
+                            View Profile
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">No researchers yet</h3>
+                <p class="card-text">The research community is growing! Check back soon for researcher profiles.</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
