@@ -27,6 +27,10 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <span>Plaza Court 6</span>
                     </div> -->
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <img src="https://confcats-siteplex.s3.us-east-1.amazonaws.com/acc25/small_acc25_logo_lr_color_fe5444424a.png" style="display: block; margin: 0 auto; width: 300px; height: auto;" alt="ACC 2025 Conference Logo" class="header-logo">
                 </div>
             </div>
         </div>
@@ -165,8 +169,6 @@
         <section id="schedule" class="content-section">
             <div class="section-header">
                 <h2>Workshop Schedule</h2>
-                <div class="section-line"></div>
-                <p class="section-subtitle">Hover over talks to view abstracts • Click to access slides</p>
             </div>
             <div class="schedule-timeline">
                 <div class="talk-card opening">
@@ -229,7 +231,15 @@
                         <div class="talk-actions">
                             <button class="slides-btn" onclick="window.open('#', '_blank')">
                                 <i class="fas fa-presentation"></i>
-                                View Slides
+                                Slides 1
+                            </button>
+                            <button class="slides-btn" onclick="window.open('slides/acc_tutorial_intro.pdf')">
+                                <i class="fas fa-presentation"></i>
+                                Slides 2
+                            </button>
+                            <button class="slides-btn" onclick="window.open('slides/ames_intro.pdf')">
+                                <i class="fas fa-presentation"></i>
+                                Slides 3
                             </button>
                         </div>
                     </div>
@@ -268,7 +278,7 @@
                             <p>Abstract and slides coming soon...</p>
                         </div>
                         <div class="talk-actions">
-                            <button class="slides-btn" onclick="window.open('#', '_blank')">
+                            <button class="slides-btn" onclick="window.open('slides/ACC_2025_Categorical_Lyapunov_Theory.pdf')">
                                 <i class="fas fa-presentation"></i>
                                 View Slides
                             </button>
@@ -290,10 +300,10 @@
                         </div>
                         <div class="talk-abstract">
                             <h4>Abstract</h4>
-                            <p>Abstract coming soon...</p>
+                            <p>Multi-stage decision problems often require the computation of optimal decisions, such as in Markov processes, various classes of games, and many types of control systems. In their most general form, the computation of optimal decisions can require the solution of non-convex optimization problems. The solution to one such problem is a decision that, when applied to a system, affects its future states in ways that constrain future decisions. To formally model these dependencies, this talk will present a novel category – called AlgBifun – in which we can model the composition of non-convex optimization problems. We focus on the case of model-predictive control (MPC), and our main result shows that an MPC problem is a composition of morphisms in this category. We will also see how constraints on initial states, terminal states, and periodicity are readily formulated in this setting. This talk will also discuss future work on connecting these categorical formalisms to other work in category theory on dynamical systems.</p>
                         </div>
                         <div class="talk-actions">
-                            <button class="slides-btn" onclick="window.open('#', '_blank')">
+                            <button class="slides-btn" onclick="window.open('slides/nonconvex_decisions.pdf')">
                                 <i class="fas fa-presentation"></i>
                                 View Slides
                             </button>
@@ -318,7 +328,7 @@
                             <p>Abstract and slides coming soon...</p>
                         </div>
                         <div class="talk-actions">
-                            <button class="slides-btn" onclick="window.open('#', '_blank')">
+                            <button class="slides-btn" onclick="window.open('slides/acc_tutorial_modeling.pdf')">
                                 <i class="fas fa-presentation"></i>
                                 View Slides
                             </button>
@@ -359,11 +369,22 @@
                 <h2>Recommended Reading</h2>
                 <div class="section-line"></div>
             </div>
+            
             <div class="references-grid">
                 <div class="reference-card">
-                    <div class="reference-icon">
-                        <i class="fas fa-book"></i>
+                    <div class="reference-content">
+                        <h3>Applied Category Theory for Engineering</h3>
+                        <p class="reference-authors">Andrea Censi, Jonathan Lorand, Gioele Zardini</p>
+                        <p class="reference-year">2024</p>
+                        <p class="reference-description">Comprehensive guide to applying categorical methods in engineering systems.</p>
+                        <a href="https://storage.zuper.ai/sync/ACT4E/ACT4E/alphubel-prod/build/last/build-public/ACT4E-public.pdf" target="_blank" class="reference-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            Read Book
+                        </a>
                     </div>
+                </div>
+                
+                <div class="reference-card">
                     <div class="reference-content">
                         <h3>Seven Sketches in Compositionality</h3>
                         <p class="reference-authors">Brendan Fong, David Spivak</p>
