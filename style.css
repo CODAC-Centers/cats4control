@@ -77,7 +77,7 @@ body {
 
 /* ===== HEADER STYLES ===== */
 .hero-header {
-    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--primary-blue) 100%);
     color: var(--white);
     padding: var(--spacing-2xl) 0;
     position: relative;
