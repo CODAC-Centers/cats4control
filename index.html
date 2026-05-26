@@ -22,7 +22,7 @@
                         <i class="fas fa-clock"></i>
                         <span>Tuesday May 26, 2026</span>
                     </div>
-                    </div>
+                </div>
             </div>
             <div class="header-actions">
                <img src="static/ACC_LOGO.png" style="display: block; margin: 0 auto; width: 300px; height: auto;" alt="ACC 2025 Conference Logo" class="header-logo">
@@ -134,7 +134,7 @@
                         <img src="https://ece.gatech.edu/sites/default/files/styles/gtcoe_max/public/profile/2024/07/hale-2.webp?itok=xsZ36P7U" alt="Matthew Hale">
                         <div class="speaker-overlay">
                             <div class="speaker-links">
-                                <a href="https://ece.gatech.edu/directory/matthew-hale" title="Visit Website"><i class="fas fa-globe"></i></a>
+                                <a href="https://ece.gatech.edu/directory/matthew-hale" class="speaker-link" title="Visit Website"><i class="fas fa-globe"></i></a>
                             </div>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                         <img src="https://wilmerleal.me/wp-content/uploads/2024/01/IMG_0385.jpeg" alt="Wilmer Leal">
                         <div class="speaker-overlay">
                             <div class="speaker-links">
-                                <a href="https://wilmerleal.me/" title="Visit Website"><i class="fas fa-globe"></i></a>
+                                <a href="https://wilmerleal.me/" class="speaker-link" title="Visit Website"><i class="fas fa-globe"></i></a>
                             </div>
                         </div>
                     </div>
@@ -161,10 +161,10 @@
 
                 <div class="speaker-card">
                     <div class="speaker-image">
-                        <img src="https://divisions-prod-assets.resources.caltech.edu/cms/images/de_Sa_Massimilia.2e16d0ba.fill-620x824-c100.format-avif.avif" alt="Wilmer Leal">
+                        <img src="https://divisions-prod-assets.resources.caltech.edu/cms/images/de_Sa_Massimilia.2e16d0ba.fill-620x824-c100.format-avif.avif" alt="Max de Sa">
                         <div class="speaker-overlay">
                             <div class="speaker-links">
-                                <a href="https://www.cms.caltech.edu/people/massimiliano-de-sa/" title="Visit Website"><i class="fas fa-globe"></i></a>
+                                <a href="https://www.cms.caltech.edu/people/massimiliano-de-sa/" class="speaker-link" title="Visit Website"><i class="fas fa-globe"></i></a>
                             </div>
                         </div>
                     </div>
@@ -174,7 +174,78 @@
                     </div>
                 </div>
             </div>
-            </section>
+        </section>
+
+        <section id="schedule" class="content-section">
+            <div class="section-header">
+                <h2>Workshop Schedule</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div style="overflow-x: auto; margin-top: 2rem;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 1.05rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #ddd;">
+                            <th style="padding: 1rem;">Time</th>
+                            <th style="padding: 1rem;">Speaker</th>
+                            <th style="padding: 1rem;">Title / Event</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">8:30 am – 9:00 am</td>
+                            <td style="padding: 1rem; font-weight: 500;">Aaron Ames</td>
+                            <td style="padding: 1rem;">Why We Need Category Theory in the Age of AI</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee; background-color: #f9fafb;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">9:00 am – 9:30 am</td>
+                            <td style="padding: 1rem; font-weight: 500;">Joe Moeller</td>
+                            <td style="padding: 1rem;">Tutorial: Category Theory</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">9:30 am – 10:00 am</td>
+                            <td style="padding: 1rem; font-weight: 500;">Max de Sa</td>
+                            <td style="padding: 1rem;">Layered Control Architectures: Constructions, Obstrutions, and Abstractions</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee; background-color: #f3f4f6;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">10:00 am – 10:30 am</td>
+                            <td style="padding: 1rem;">-</td>
+                            <td style="padding: 1rem; font-weight: 600; color: #666;">Coffee Break</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">10:30 am – 10:50 am</td>
+                            <td style="padding: 1rem; font-weight: 500;">Joe Moeller</td>
+                            <td style="padding: 1rem;">Control Coalgebras and Barrier Morphisms</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee; background-color: #f9fafb;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">10:50 am – 11:10 am</td>
+                            <td style="padding: 1rem; font-weight: 500;">Hans Riess</td>
+                            <td style="padding: 1rem;">Tutorial: Applied Sheaf Theory</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">11:10 am – 11:30 am</td>
+                            <td style="padding: 1rem; font-weight: 500;">James Fairbanks</td>
+                            <td style="padding: 1rem;">Compositional Modeling: Structures, Dynamics, Optimization</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee; background-color: #f9fafb;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">11:30 am – 11:50 am</td>
+                            <td style="padding: 1rem; font-weight: 500;">Wilmer Leal</td>
+                            <td style="padding: 1rem;">Distributed Computation of Fixed Points in Combinatorial Threshold-Linear Networks via Sheaf Theory</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee; background-color: #f3f4f6;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">11:50 am – 12:00 pm</td>
+                            <td style="padding: 1rem;">-</td>
+                            <td style="padding: 1rem; font-weight: 600; color: #666;">Small Break</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 1rem; white-space: nowrap; color: #555;">12:00 pm – 1:00 pm</td>
+                            <td style="padding: 1rem; font-weight: 500;">Aaron Ames, Matthew Hale, James Faribanks</td>
+                            <td style="padding: 1rem; font-weight: 600;">Panel Discussion</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
         <section id="references" class="content-section">
             <div class="section-header">
