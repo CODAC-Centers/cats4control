@@ -22,15 +22,10 @@
                         <i class="fas fa-clock"></i>
                         <span>Tuesday May 26, 2026</span>
                     </div>
-                    <!-- <div class="detail-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Plaza Court 6</span>
-                    </div> -->
                     </div>
-                </div>
-                <div class="header-actions">
-                   <img src="static/ACC_LOGO.png" style="display: block; margin: 0 auto; width: 300px; height: auto;" alt="ACC 2025 Conference Logo" class="header-logo">
-                </div>
+            </div>
+            <div class="header-actions">
+               <img src="static/ACC_LOGO.png" style="display: block; margin: 0 auto; width: 300px; height: auto;" alt="ACC 2025 Conference Logo" class="header-logo">
             </div>
         </div>
     </header>
@@ -72,6 +67,8 @@
                 <h2>Speakers</h2>
                 <div class="section-line"></div>
             </div>
+            
+            <div class="speakers-grid">
                 <div class="speaker-card">
                     <div class="speaker-image">
                         <img src="https://mae.ufl.edu/wp-content/uploads/sites/4/connections-images/james-fairbanks/James-Fairbanks-7580fe7b262261b62c2283c171d201ff.png" alt="James Fairbanks">
@@ -134,6 +131,21 @@
 
                 <div class="speaker-card">
                     <div class="speaker-image">
+                        <img src="https://ece.gatech.edu/sites/default/files/styles/gtcoe_max/public/profile/2024/07/hale-2.webp?itok=xsZ36P7U" alt="Matthew Hale">
+                        <div class="speaker-overlay">
+                            <div class="speaker-links">
+                                <a href="https://ece.gatech.edu/directory/matthew-hale" title="Visit Website"><i class="fas fa-globe"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3>Matthew Hale</h3>
+                        <p class="speaker-affiliation">Georgia Tech</p>
+                    </div>
+                </div>
+
+                <div class="speaker-card">
+                    <div class="speaker-image">
                         <img src="https://wilmerleal.me/wp-content/uploads/2024/01/IMG_0385.jpeg" alt="Wilmer Leal">
                         <div class="speaker-overlay">
                             <div class="speaker-links">
@@ -162,196 +174,7 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- <section id="schedule" class="content-section">
-            <div class="section-header">
-                <h2>Workshop Schedule</h2>
-            </div>
-            <div class="schedule-timeline">
-                <div class="talk-card opening">
-                    <div class="talk-time">
-                        <span class="time">8:45am - 9:00am</span>
-                        <span class="duration">15 min</span>
-                    </div>
-                    <div class="talk-content">
-                        <div class="talk-header">
-                            <h3>Introduction</h3>
-                            <div class="talk-speakers">
-                                <span class="speaker-tag">Gioele, Aaron, Fairbanks</span>
-                            </div>
-                        </div>
-                        <p class="talk-summary">Introduction to the workshop and motivation.</p>
-                    </div>
-                </div>
-
-                <div class="talk-card primer">
-                    <div class="talk-time">
-                        <span class="time">9:00am - 9:45am</span>
-                        <span class="duration">45 min</span>
-                    </div>
-                    <div class="talk-content">
-                        <div class="talk-header">
-                            <h3>Tutorial: Applied Category Theory</h3>
-                            <div class="talk-speakers">
-                                <span class="speaker-tag">Gioele</span>
-                            </div>
-                        </div>
-                        <div class="talk-abstract">
-                            <h4>Abstract</h4>
-                            <p>Abstract and slides coming soon...</p>
-                        </div>
-                        <div class="talk-actions">
-                            <button class="slides-btn" onclick="window.open('#', '_blank')">
-                                <i class="fas fa-presentation"></i>
-                                View Slides
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="talk-card primer">
-                    <div class="talk-time">
-                        <span class="time">9:45am - 10:30am</span>
-                        <span class="duration">45 min</span>
-                    </div>
-                    <div class="talk-content">
-                        <div class="talk-header">
-                            <h3>Tutorial: Applied Sheaf Theory</h3>
-                            <div class="talk-speakers">
-                                <span class="speaker-tag">Hans</span>
-                            </div>
-                        </div>
-                        <div class="talk-abstract">
-                            <h4>Abstract</h4>
-                            <p>Abstract and slides coming soon...</p>
-                        </div>
-                        <div class="talk-actions">
-                            <button class="slides-btn" onclick="window.open('#', '_blank')">
-                                <i class="fas fa-presentation"></i>
-                                View Slides
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="talk-card break">
-                    <div class="talk-time">
-                        <span class="time">10:30am - 11:00am</span>
-                        <span class="duration">30min</span>
-                    </div>
-                    <div class="talk-content">
-                        <div class="talk-header">
-                            <h3>Coffee Break & Networking</h3>
-                            <div class="talk-speakers">
-                                <span class="speaker-tag networking">Open Discussion</span>
-                            </div>
-                        </div>
-                        <p class="talk-summary">Networking opportunity and informal discussions.</p>
-                    </div>
-                </div>
-
-                <div class="talk-card technical">
-                    <div class="talk-time">
-                        <span class="time">11:00am - 11:30am</span>
-                        <span class="duration">30 min</span>
-                    </div>
-                    <div class="talk-content">
-                        <div class="talk-header">
-                            <h3>Category Theory in Control</h3>
-                            <div class="talk-speakers">
-                                <span class="speaker-tag">Aaron</span>
-                            </div>
-                        </div>
-                        <div class="talk-abstract">
-                            <h4>Abstract</h4>
-                            <p>Abstract and slides coming soon...</p>
-                        </div>
-                        <div class="talk-actions">
-                            <button class="slides-btn" onclick="window.open('slides/ACC_2025_Categorical_Lyapunov_Theory.pdf')">
-                                <i class="fas fa-presentation"></i>
-                                View Slides
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="talk-card technical">
-                    <div class="talk-time">
-                        <span class="time">11:30am - 12:00pm</span>
-                        <span class="duration">30 min</span>
-                    </div>
-                    <div class="talk-content">
-                        <div class="talk-header">
-                            <h3>Control Coalgebras and Barrier Morphisms</h3>
-                            <div class="talk-speakers">
-                                <span class="speaker-tag">Joe</span>
-                            </div>
-                        </div>
-                        <div class="talk-abstract">
-                            <h4>Abstract</h4>
-                            <p>Abstract and slides coming soon...</p>    
-                        </div>
-                        <div class="talk-actions">
-                            <button class="slides-btn" onclick="window.open('slides/nonconvex_decisions.pdf')">
-                                <i class="fas fa-presentation"></i>
-                                View Slides
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="talk-card technical">
-                    <div class="talk-time">
-                        <span class="time">12:00pm - 12:30pm</span>
-                        <span class="duration">30 min</span>
-                    </div>
-                    <div class="talk-content">
-                        <div class="talk-header">
-                            <h3>Compositional Design of Layered Control Architectures</h3>
-                            <div class="talk-speakers">
-                                <span class="speaker-tag">Nikolai</span>
-                            </div>
-                        </div>
-                        <div class="talk-abstract">
-                            <h4>Abstract</h4>
-                            <p>Abstract and slides coming soon...</p>
-                        </div>
-                        <div class="talk-actions">
-                            <button class="slides-btn" onclick="window.open('slides/acc_tutorial_modeling.pdf')">
-                                <i class="fas fa-presentation"></i>
-                                View Slides
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="talk-card technical">
-                    <div class="talk-time">
-                        <span class="time">12:30pm - 1:00pm</span>
-                        <span class="duration">30 min</span>
-                    </div>
-                    <div class="talk-content">
-                        <div class="talk-header">
-                            <h3>Compositional Design of Networked Systems</h3>
-                            <div class="talk-speakers">
-                                <span class="speaker-tag">James</span>
-                            </div>
-                        </div>
-                        <div class="talk-abstract">
-                            <h4>Abstract</h4>
-                            <p>Abstract and slides coming soon...</p>
-                        </div>
-                        <div class="talk-actions">
-                            <button class="slides-btn" onclick="window.open('#', '_blank')">
-                                <i class="fas fa-presentation"></i>
-                                View Slides
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
+            </section>
 
         <section id="references" class="content-section">
             <div class="section-header">
